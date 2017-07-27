@@ -3,7 +3,6 @@
 	require_once("../includes/db_queries/db_users_queries.php");
 	require_once("../includes/functions.php");
 	require_once("../includes/db_connection.php");
-	//require_once("");
 	
 	global $errors;
 	

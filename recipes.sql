@@ -12,7 +12,7 @@ CREATE TABLE my_recipes (
 INSERT INTO my_recipes (name, instructions)
 	VALUES ('PB&J', 'figure it out');
 INSERT INTO my_recipes (name, instructions)
-	VALUES ('morning toast', 'isn\'t it obvious?');
+	VALUES ('morning toast', "isn\'t it obvious?");
 
 SELECT * FROM my_recipes;
 

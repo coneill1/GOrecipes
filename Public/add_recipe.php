@@ -53,6 +53,7 @@
 			</form>
 
 	</div>
+	<script src="../includes/layouts/Javascript/add_recipe_script.js"></script>
 	<!--<?php mysqli_free_result($result)?>-->
 		
 <?php include("../includes/layouts/footer.php"); ?>

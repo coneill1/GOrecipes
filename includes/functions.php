@@ -1,4 +1,30 @@
 <?php 
+	function db_escape($string) {
+		
+		global $connection;
+		
+		return mysqli_real_escape_string($connection, $string);
+	}
+	
+	function redirect_to($url) {
+		header('Location: ' . $url);
+	}
+	
+	function display_errors($errors=array()) {
+		$output = '';
+		if(!empty($errors)) {
+			
+			$output .= 'Please fix the following errors:';
+			$output .= '<ul>';
+			
+			foreach($errors as $error) {
+				$output .= '<li>' . $error . '</li>';
+			}
+			$output .= '</ul>';
+		}
+		
+		return $output;
+	}
 	
 	function list_all_recipes() {
 		

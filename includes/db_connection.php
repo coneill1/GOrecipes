@@ -5,6 +5,7 @@
 	define("DB_NAME", "recipes");
 	
 	$connection = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+	$errors = [];
 	
 	//test if connection occurred.
 	if(mysqli_connect_errno()) {

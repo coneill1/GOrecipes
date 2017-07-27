@@ -52,7 +52,6 @@
 				<button id="submitBtn" type="submit" name="submit">Submit</button>
 			</form>
 
-		<script src="Javascript/script.js"></script>
 	</div>
 	<!--<?php mysqli_free_result($result)?>-->
 		

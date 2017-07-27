@@ -1,50 +1,52 @@
 <?php 
 	
-	function add_user($username, $pw, $admin) {
-		global $connection_users;
+	function list_all_users() {
+		global $connection;
 		
+		$query = 'SELECT * FROM users';
 		
-		$query = 'INSERT INTO usernames (username, admin)';
-		$query .= ' VALUES( ';
-		$query .= "'{$username}', '{$admin}'";
-		$query .= ");";
-		
-		$result = mysqli_query($connection_users, $query);
-		//confirm_query($result);
-		
-		
-		//add password to database
-		//get user id
-		$query = "SELECT id FROM usernames WHERE username = '{$username}'";
-		$result = mysqli_query($connection_users, $query);
+		$result = mysqli_query($connection, $query);
 		confirm_query($result);
-		$id = mysqli_fetch_array($result);
-		$user_id = $id[0];
 		
-		$hash = password_hash($pw, PASSWORD_DEFAULT);
-		
-		$query = 'INSERT INTO passwords (hash, user_id)';
-		$query .= ' VALUES( ';
-		$query .= "'{$hash}', '{$user_id}'";
-		$query .= ");";
-		
-		$result = mysqli_query($connection_users, $query);
-		//confirm_query($result);
+		return $result;
 	}
 	
-	function confirm_query($result) {
-		global $connection_users;
+	
+	function add_user($first, $last, $email, $username, $pw) {
+		global $connection;
 		
-		if($result) {
-			return true;
-		}
-		die("Database query failed." . mysqli_error($connection_users));
+		
+		$query = 'INSERT INTO users (first_name, last_name, email, username, hashed_password';
+		$query .= ') VALUES( ';
+		$query .= "'{$first}', '{$last}', '{$email}', '{$username}', '{$pw}'";
+		$query .= ");";
+		
+		$result = mysqli_query($connection, $query);
+		confirm_query($result);
 	}
+	
+	function find_user_by_username($username) {
+		
+		global $connection;
+		
+		$sql = "SELECT * FROM users ";
+		$sql .= "WHERE username='" . db_escape($username) . "' ";
+		$sql .= "LIMIT 1";
+		
+		$result = mysqli_query($connection, $sql);
+		confirm_query($result);
+		
+		$user = mysqli_fetch_assoc($result);
+		mysqli_free_result($result);
+		
+		return $user;
+	}
+	
 	
 	function valid_login($username, $password) {
 		global $connection_users;
 		
-		$query = "SELECT id FROM usernames WHERE username = '{$username}'";
+		$query = "SELECT id FROM users WHERE username = '{$username}'";
 		$result = mysqli_query($connection_users, $query);
 		confirm_query($result);
 		$id = mysqli_fetch_array($result);

@@ -3,8 +3,8 @@
 <html lang="en">
 	<head>
 		<title>GO Recipes</title>
-		<link href="stylesheets/main.css" rel="stylesheet" type="text/css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<link href="css/main.css" rel="stylesheet" type="text/css" />
+		<link href="css/boostrap.min.css" rel="stylesheet" />
 
 	</head>
 	<body>

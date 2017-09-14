@@ -5,17 +5,25 @@
 	require_once("../includes/db_connection.php");
 	
 	global $errors;
+	if(!empty($errors)) {
+        $output = display_errors($errors);  
+    }
+
+    //<?php if(!empty($errors)) echo $output; else echo 'No Errors';
 	
-	$output = display_errors($errors);
-	echo $output;
 	
 ?>
-
-				<div class="page_content">
-					<form action="../users/admin.php" id="login" method="post">
-							Username: <input id="uname" name="user" type="text"></input> <br>
-							Password: <input id="pass" name="pw" type="text"></input> <br>
-							<button type="submit" id="passSubmit" name="submit">Sumbit</button>
+				<div class="page_content ml-3 mt-3">
+					<form action="../users/process_login.php" id="login" method="post">
+                        <div class="form-group">
+                            <label for="uname">Username:</label>
+                            <input id="uname" name="user" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="pass">Password:</label> 
+                            <input id="pass" name="pw" type="password">
+                        </div>
+				        <button type="submit" id="passSubmit" name="submit">Sumbit</button>
 					 </form>
 				</div>
 

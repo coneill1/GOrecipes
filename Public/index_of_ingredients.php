@@ -1,13 +1,17 @@
-<?php 
-	include("../includes/layouts/header.php");
+<?php
+    session_start();
+
 	require_once("../includes/functions.php");
 	require_once("../includes/db_connection.php");
+    require_once("../includes/auth_functions.php");
+
+    if(!isset($_SESSION['valid_user']) && !isset($_SESSION['public'])) {
+        redirect_to('main_page.php');
+    }
 ?>
 
-	
-	<div class="page_content">
 		<h2>Ingredients</h2>
-		<ul>
+		<ul class="text-left">
 			<?php 
 				$ingredients = list_all_ingredients();
 				while($row = mysqli_fetch_assoc($ingredients)) {
@@ -16,8 +20,5 @@
 				}
 			?>
 		</ul>
-	</div>
 	
-	<?php mysqli_free_result($ingredients)?>
-		
-<?php include("../includes/layouts/footer.php"); ?>
+<?php mysqli_free_result($ingredients)?>

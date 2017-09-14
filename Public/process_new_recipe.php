@@ -1,13 +1,20 @@
-<?php 
+<?php
+    session_start();
+
 	include("../includes/layouts/header.php");
 	require_once("../includes/functions.php");
 	require_once("../includes/db_connection.php");
+    require_once("../includes/auth_functions.php");
+
+    if(!isset($_SESSION['valid_user']) && !isset($_SESSION['public'])) {
+        redirect_to('main_page.php');
+    }
 	
 	if(!isset($_POST['submit'])) {
 		echo "redirecting...";
 	}
 ?>
-<div class="page_content">
+<div class="col-12 page_content">
 	<?php
 	//get all the form data
 		$recipe_name = $_POST['recipe_name'];
@@ -36,7 +43,7 @@
 		add_recipe($recipe_name, $ingredients, $amts, $instructions);
 	?>
 		
-	Recipe Added!
+	<h4>Recipe Added!</h4> <br>
 	Name: <?php echo $recipe_name?> <br>
 	Ingredients: <br><?php for($i = 0; $i < sizeof($ingredients); $i++) {
 		echo $i+1 . ": {$ingredients[$i]} - {$amts[$i]}<br>";

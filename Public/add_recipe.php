@@ -1,7 +1,13 @@
 <?php
+    session_start();
+
 	require_once("../includes/functions.php");
 	require_once("../includes/db_connection.php");
-	include("../includes/layouts/header.php");
+    require_once("../includes/auth_functions.php");
+
+    if(!isset($_SESSION['valid_user']) && !isset($_SESSION['public'])) {
+        redirect_to('main_page.php');
+    }
 	
 	$result = list_all_recipes(); 
 	$recipes = [];
@@ -11,8 +17,6 @@
 	
 	$ingred_result = list_all_ingredients();
 	$ingredients = [];
-	
-	
 	
 	while($ingredient = mysqli_fetch_assoc($ingred_result)) {
 		$ingredients[] = $ingredient['ingred_name'];
@@ -29,7 +33,6 @@
 	$js_amts = json_encode($amts);
 ?>
 	
-	<div class="page_content">
 		<h2>Add Recipe</h2>
 			<form action="process_new_recipe.php" method="post">
 				Recipe Name: <input list="recipes" name="recipe_name" placeholder="recipe name">
@@ -43,7 +46,7 @@
 						}
 					?>
 				</datalist>
-				<button type="button" id="add_button" onclick='add_ingred_form(<?php echo $js_ingreds ?>, <?php echo $js_amts?>)'>Add Ingredient</button>
+				<button type="button" id="add_button">Add Ingredient</button>
 				<div id="ingredients"></div>
 				<div id="instructions">
 					Directions:<br/>
@@ -51,9 +54,5 @@
 				</div>
 				<button id="submitBtn" type="submit" name="submit">Submit</button>
 			</form>
-
-	</div>
-	<script src="../includes/layouts/Javascript/add_recipe_script.js"></script>
+        
 	<!--<?php mysqli_free_result($result)?>-->
-		
-<?php include("../includes/layouts/footer.php"); ?>

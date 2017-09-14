@@ -1,5 +1,3 @@
-
-
 DROP TABLE IF EXISTS my_recipes;
 CREATE TABLE my_recipes (
   id INT(11) NOT NULL AUTO_INCREMENT,
@@ -16,9 +14,6 @@ INSERT INTO my_recipes (name, instructions)
 
 SELECT * FROM my_recipes;
 
-/*
-	Ingredients Table
-*/
 DROP TABLE IF EXISTS ingredients;
 CREATE TABLE ingredients (
   id INT(11) NOT NULL AUTO_INCREMENT,
@@ -38,9 +33,7 @@ INSERT INTO ingredients (ingred_name)
 
 SELECT * FROM ingredients;
 
-/*
-	junction Table
-*/
+
 DROP TABLE IF EXISTS ingredients_in_recipes;
 CREATE TABLE ingredients_in_recipes (
   ingred_id INT(30),
@@ -64,9 +57,7 @@ INSERT INTO ingredients_in_recipes (ingred_id, recipe_id, amt)
 
 SELECT * FROM ingredients_in_recipes; 
 
-/*
-	list all ingredients in recipe 1
-*/
+
 SELECT ingred_name FROM ingredients
   INNER JOIN (SELECT ingred_id FROM ingredients_in_recipes WHERE recipe_id = 1) ir
   ON id = ir.ingred_id;

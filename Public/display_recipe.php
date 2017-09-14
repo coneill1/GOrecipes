@@ -1,7 +1,13 @@
 <?php 
-	include("../includes/layouts/header.php");
+    session_start();
+
 	require_once("../includes/functions.php");
 	require_once("../includes/db_connection.php");
+    require_once("../includes/auth_functions.php");
+
+    if(!isset($_SESSION['valid_user']) && !isset($_SESSION['public'])) {
+        redirect_to('main_page.php');
+    }
 	
 		if(isset($_GET['id'])) {
 				$recipe_id = $_GET['id'];
@@ -9,12 +15,12 @@
 				$instructions = $_GET['instructions'];
 			}
 		else {
-			header("Location: \"index_of_recipes.php\"");
+			redirect_to("index_of_recipes.php");
 		}
 ?>
 
-	<h1><?php echo $name ?></h1>
-	<h2>Ingredients</h2>
+	<h2><?php echo $name ?></h2>
+	<h3>Ingredients</h3>
 		<ul>
 			<?php
 				$ingredients = get_ingredients($recipe_id);
